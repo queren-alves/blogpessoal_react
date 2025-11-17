@@ -19,8 +19,8 @@ function Navbar() {
                     <Link to="/home" className="text-2xl font-bold">PostHub</Link>
                     <div className="flex gap-4">
                         Postagens
-                        Temas
-                        Cadastrar Tema
+                        <Link to='/temas' className='hover:underline'>Temas</Link>
+                        <Link to='/cadastrartema' className='hover:underline'>Cadastrar tema</Link>
                         Perfil
                         <Link to="" onClick={logout} className="hover:underline">Sair</Link>
                     </div>
