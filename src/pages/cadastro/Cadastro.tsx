@@ -45,12 +45,12 @@ function Cadastro() {
     if (confirmarSenha === usuario.senha && usuario.senha.length >= 8) {
       try {
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario);
-        alert("Usuário cadastrado com sucesso.");
+        ToastAlerta("Usuário cadastrado com sucesso.");
       } catch (error) {
-        alert("Erro ao cadastrar usuário.");
+        ToastAlerta("Erro ao cadastrar usuário.");
       }
     } else {
-      alert("Dados do usuário inconsistentes. Verifique as informações do cadastro.");
+      ToastAlerta("Dados do usuário inconsistentes. Verifique as informações do cadastro.");
       setUsuario({
         ...usuario,
         senha: ''
