@@ -71,7 +71,7 @@ function DeletarTema() {
             <p className="text-gray-700 leading-relaxed mb-6">
                 Tem certeza de que deseja excluir o tema
                 <span className="text-gray-700 font-semibold"> "{tema.descricao}"</span>?
-                Esta ação não poderá ser desfeita e pode afetar postagens associadas.
+                Esta ação não poderá ser desfeita.
             </p>
             <div className="flex justify-end gap-3">
 
