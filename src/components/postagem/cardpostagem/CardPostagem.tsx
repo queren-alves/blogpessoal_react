@@ -10,7 +10,7 @@ interface CardPostagensProps {
 
 function CardPostagem({ postagem }: CardPostagensProps) {
 
-    const { usuario } = useContext(AuthContext) // usuário logado
+    const { usuario } = useContext(AuthContext)
 
     const isDonoDaPostagem = usuario?.id === postagem.usuario?.id
 
@@ -38,8 +38,7 @@ function CardPostagem({ postagem }: CardPostagensProps) {
                         </p>
                     </div>
                 </div>
-
-                {/* Só mostra se for o dono */}
+                
                 {isDonoDaPostagem && (
                     <div className="flex gap-2">
                         <Link
