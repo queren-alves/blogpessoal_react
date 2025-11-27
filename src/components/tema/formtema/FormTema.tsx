@@ -36,7 +36,7 @@ function FormTema() {
     useEffect(() => {
         if (token === '') {
             ToastAlerta('Você precisa estar logado.', "info");
-            navigate('/');
+            navigate('/login');
         }
     }, [token]);
 

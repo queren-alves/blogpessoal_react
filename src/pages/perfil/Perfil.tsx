@@ -12,26 +12,44 @@ function Perfil() {
     useEffect(() => {
         if (usuario.token === "") {
             ToastAlerta("Você precisa estar logado", "info")
-            navigate("/")
+            navigate("/login")
         }
     }, [usuario.token])
 
     return (
-        <div className="flex justify-center mx-4">
-            <div className="container mx-auto my-4 rounded-2xl overflow-hidden">
-                <img className="w-full h-72 object-cover border-b-8 border-white" src="https://i.imgur.com/ZZFAmzo.jpg" alt="Capa do Perfil" />
-                <img className="rounded-full w-56 mx-auto -mt-32 border-8 border-white relative z-10" src={usuario.foto} alt={`Foto de perfil de ${usuario.nome}`} />
-                <div className="relative -mt-24 h-90 flex flex-col bg-sky-500 text-white text-2xl items-center justify-center">
-                    <p>{usuario.nome} </p>
-                    <p>{usuario.usuario}</p>
-                    <Link to={`/atualizarperfil`} className="mt-8 w-full md:w-auto">
-                        <button className="w-full md:w-auto bg-linear-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
-                            Editar Perfil
-                        </button>
-                    </Link>
+        <>
+            <div className="flex justify-center px-4 py-8">
+                <div className="w-full max-w-4xl bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div className="relative">
+                        <img
+                            className="w-full h-60 object-cover"
+                            src="https://i.imgur.com/2JZhcTQ.png"
+                            alt="Capa do Perfil"
+                        />
+                        <div className="absolute left-1/2 -bottom-16 transform -translate-x-1/2">
+                            <img
+                                className="w-36 h-36 rounded-full border-4 border-white shadow-md object-cover"
+                                src={usuario.foto}
+                                alt={`Foto de perfil de ${usuario.nome}`}
+                            />
+                        </div>
+                    </div>
+                    <div className="pt-20 pb-8 text-center">
+                        <h1 className="text-2xl font-semibold text-gray-800">
+                            {usuario.nome}
+                        </h1>
+                        <p className="text-gray-500 mt-1">
+                            {usuario.usuario}
+                        </p>
+                        <Link to={`/atualizarperfil`} className="inline-block mt-6">
+                            <button className="px-6 py-2.5 text-white text-sm font-medium rounded-md bg-gray-800 hover:bg-gray-700 transition cursor-pointer">
+                                Editar Perfil
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

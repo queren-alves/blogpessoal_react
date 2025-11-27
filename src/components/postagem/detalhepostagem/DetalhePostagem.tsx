@@ -14,7 +14,6 @@ function PostagemDetalhe() {
     const [relacionados, setRelacionados] = useState<Postagem[]>([]);
     const token = usuario.token;
 
-    // 🔹 Buscar o post atual
     useEffect(() => {
         async function carregarPost() {
             await buscar(`/postagens/${id}`, setPostagem, {
@@ -24,7 +23,6 @@ function PostagemDetalhe() {
         carregarPost();
     }, [id]);
 
-    // 🔹 Buscar TODOS os posts e filtrar os relacionados
     useEffect(() => {
         async function carregarRelacionados() {
             if (!postagem?.tema?.id) return;

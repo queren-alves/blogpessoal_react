@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Perfil from "./pages/perfil/Perfil"
 import AtualizarPerfil from "./pages/perfil/AtualizarPerfil"
 import PostagemDetalhe from "./components/postagem/detalhepostagem/DetalhePostagem"
+import LandingPage from "./pages/landingpage/LandingPage"
 
 function App() {
 
@@ -27,7 +28,8 @@ function App() {
           <Navbar />
           <div className="min-h-[80vh]">
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/home" element={<Home />} />
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/temas" element={<ListaTemas />} />

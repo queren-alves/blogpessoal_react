@@ -11,7 +11,7 @@ function Navbar() {
     function logout() {
         handleLogout();
         ToastAlerta('O usuário foi desconectado com sucesso.', "info");
-        navigate('/');
+        navigate('/login');
     }
 
     let component: ReactNode;

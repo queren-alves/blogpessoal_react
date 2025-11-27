@@ -43,7 +43,7 @@ function AtualizarPerfil() {
     useEffect(() => {
         if (token === "") {
             ToastAlerta("Você precisa estar logado.", "info")
-            navigate("/")
+            navigate("/login")
         }
     }, [token])
 
@@ -109,73 +109,103 @@ function AtualizarPerfil() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-sky-50 to-indigo-100 py-12 px-4">
-            <div className="container mx-auto max-w-7xl">
-                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr]">
-                        <div className="bg-linear-to-br from-sky-400 via-sky-500 to-indigo-500 p-8 flex flex-col items-center justify-center">
-                            <div className="relative">
-                                <img src={user.foto} alt={user.nome} className="w-48 h-48 object-cover rounded-full border-8 border-white shadow-2xl"/>
-                                <div className="absolute bottom-4 right-4 w-8 h-8 bg-green-500 rounded-full border-4 border-white"></div>
-                            </div>
-                            <h2 className="text-white text-2xl font-bold mt-6 text-center">{user.nome}</h2>
-                            <p className="text-sky-100 text-base mt-2">{user.usuario}</p>
-                        </div>
-                        <div className="p-8 lg:p-12">
-                            <div className="mb-8">
-                                <h1 className="text-4xl font-bold text-gray-800 mb-2">Editar Perfil</h1>
-                                <p className="text-gray-500">Atualize suas informações pessoais</p>
-                            </div>
+        <div className="min-h-screen bg-gray-50 flex justify-center items-start py-12 px-4">
+            <div className="w-full max-w-4xl">
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">Editar Perfil</h1>
+                <p className="text-gray-500 mb-8">Atualize suas informações do perfil</p>
+                <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
+                    <h2 className="text-lg font-semibold text-gray-800 mb-6">Dados Pessoais</h2>
 
-                            <form onSubmit={atualizarUsuario} className="space-y-6">
-                                <div className="space-y-2">
-                                    <label htmlFor="nome" className="block text-sm font-semibold text-gray-700">
-                                        Nome Completo
-                                    </label>
-                                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" className="w-full px-4 py-3 border-2 border-slate-700 rounded  focus:outline-none transition-colors" value={user.nome || ""} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} required />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="usuario" className="block text-sm font-semibold text-gray-700">
-                                        E-mail
-                                    </label>
-                                    <input type="email" id="usuario" name="usuario" placeholder="seu@email.com" className="w-full px-4 py-3 border-2 border-gray-200 rounded bg-gray-50 cursor-not-allowed" disabled value={user.usuario || ""} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
-                                    <p className="text-xs text-gray-500">O e-mail não pode ser alterado</p>
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="foto" className="block text-sm font-semibold text-gray-700">
-                                        URL da Foto de Perfil
-                                    </label>
-                                    <input type="url" id="foto" name="foto" placeholder="https://exemplo.com/foto.jpg" className="w-full px-4 py-3 border-2 border-slate-700 rounded  focus:outline-none transition-colors" value={user.foto || ""} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} required />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="senha" className="block text-sm font-semibold text-gray-700">
-                                        Nova Senha
-                                    </label>
-                                    <input type="password" id="senha" name="senha" placeholder="Mínimo 8 caracteres" className="w-full px-4 py-3 border-2 border-slate-700 rounded  focus:outline-none transition-colors" value={user.senha || ""} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} required minLength={8} />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="confirmarSenha" className="block text-sm font-semibold text-gray-700">
-                                        Confirmar Nova Senha
-                                    </label>
-                                    <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Digite a senha novamente" className="w-full px-4 py-3 border-2 border-slate-700 rounded  focus:outline-none transition-colors" value={confirmarSenha} onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e)} required minLength={8}/>
-                                </div>
-                                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                    <button type="button" className="flex-1 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-colors" onClick={retornar}>
-                                        Cancelar
-                                    </button>
-                                    <button type="submit" className="flex-1 px-6 py-3 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-indigo-800 shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2" disabled={isLoading}>
-                                        {isLoading ? (
-                                            <ClipLoader color="#ffffff" size={24} />
-                                        ) : (
-                                            <>
-                                                <span>Atualizar Perfil</span>
-                                            </>
-                                        )}
-                                    </button>
-                                </div>
-                            </form>
+                    <div className="flex items-center justify-center gap-6 mb-8">
+                        <div className="flex flex-col items-center justify-center">
+                            <div className="relative">
+                                <img src={user.foto} alt={user.nome} className="w-40 h-40 object-cover rounded-full border-2 border-white shadow-2xl" />
+                                <div className="absolute bottom-4 right-4 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+                            </div>
+                            <h2 className="text-gray-700 text-2xl font-bold mt-6 text-center">{user.nome}</h2>
+                            <p className="text-gray-400 text-base mt-2">{user.usuario}</p>
                         </div>
                     </div>
+
+                    <form onSubmit={atualizarUsuario} className="space-y-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Nome completo
+                            </label>
+                            <input
+                                type="text"
+                                name="nome"
+                                value={user.nome}
+                                onChange={(e) => atualizarEstado(e)}
+                                className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-300 transition"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                E-mail
+                            </label>
+                            <input
+                                type="email"
+                                name="usuario"
+                                value={user.usuario}
+                                disabled
+                                className="w-full px-4 py-3 border border-gray-200 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+                            />
+                            <p className="text-xs text-gray-400 mt-1">E-mail não pode ser alterado</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                URL da foto de perfil
+                            </label>
+                            <input
+                                type="url"
+                                name="foto"
+                                value={user.foto || ""}
+                                onChange={(e) => atualizarEstado(e)}
+                                className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-300 transition"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Nova Senha
+                            </label>
+                            <input
+                                type="password"
+                                name="senha"
+                                value={user.senha}
+                                onChange={(e) => atualizarEstado(e)}
+                                className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-300 transition"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Confirmar Senha
+                            </label>
+                            <input
+                                type="password"
+                                value={confirmarSenha}
+                                onChange={(e) => handleConfirmarSenha(e)}
+                                className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-300 transition"
+                            />
+                        </div>
+                        <div className="flex justify-end gap-4 pt-4">
+                            <button
+                                type="button"
+                                onClick={retornar}
+                                className="px-6 py-3 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 transition cursor-pointer"
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className="px-6 py-3 rounded-md text-white font-medium bg-gray-800 hover:bg-gray-700 transition flex items-center gap-2 cursor-pointer"
+                            >
+                                {isLoading ? <ClipLoader size={20} color="#fff" /> : 'Atualizar Perfil'}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
