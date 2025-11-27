@@ -16,17 +16,13 @@ function CardTema({ tema }: CardTemaProps) {
         <h3 className="text-lg font-semibold text-gray-800 mb-1">
           {tema.descricao}
         </h3>
-        
-        {/* opcional: mostrar info */}
         {temaTemPostagens && (
           <span className="text-sm text-gray-500">
             Este tema está vinculado a {tema.postagem.length} postagem(ns)
           </span>
         )}
       </div>
-
       <div className="flex gap-2">
-        {/* Editar sempre aparece */}
         <Link
           to={`/editartema/${tema.id}`}
           className="bg-transparent p-2 rounded-md border border-gray-200 shadow-sm 
@@ -35,18 +31,28 @@ function CardTema({ tema }: CardTemaProps) {
         >
           <PencilSimpleIcon />
         </Link>
-
-        {/* Excluir só se não tiver postagens */}
-        {!temaTemPostagens && (
-          <Link
-            to={`/deletartema/${tema.id}`}
-            className="bg-transparent p-2 rounded-md border border-gray-200 shadow-sm 
-                       hover:bg-gray-100 transition flex items-center justify-center text-slate-800"
-            title="Excluir Tema"
-          >
+        <div className="relative group">
+          <button
+            disabled={temaTemPostagens}
+            className={`p-2 rounded-md border shadow-sm flex items-center justify-center transition
+      ${temaTemPostagens
+                ? "bg-gray-200 p-2 rounded-md border border-gray-200 shadow-s cursor-not-allowed text-slate-800"
+                : "bg-transparent p-2 rounded-md border border-gray-200 shadow-s text-slate-800 cursor-pointer" 
+              }`}
+          title="Excluir Tema">
             <TrashSimpleIcon />
-          </Link>
-        )}
+          </button>
+
+          {temaTemPostagens && (
+            <span
+              className="absolute -top-10 left-1/2 -translate-x-1/2 
+                 opacity-0 group-hover:opacity-100 transition
+                 bg-black text-white text-xs px-3 py-1 rounded-md shadow-lg whitespace-nowrap"
+            >
+              Não é possível excluir um tema com postagens
+            </span>
+          )}
+        </div>
       </div>
     </div>
   )
