@@ -87,25 +87,51 @@ function FormTema() {
     }
 
     return (
-        <div className="container flex flex-col items-center justify-center mx-auto">
-            <h1 className="text-4xl text-center my-8">{id === undefined ? 'Cadastrar' : 'Atualizar'} Tema</h1>
-            <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoTema}>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="descricao">Descrição do Tema</label>
-                    <input type="text" placeholder="Descreva seu tema" name="descricao" className="border-2 border-slate-700 rounded p-2" value={tema.descricao} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
-                </div>
-                <button className="rounded text-slate-100 bg-indigo-400 hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center" type="submit">
-                    {
-                        isLoading ?
-                            <ClipLoader
-                                color="#ffffff"
-                                size={24}
-                            /> :
-                            <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
-                    }
-                </button>
-            </form>
+        <div className="min-h-[80vh] bg-gray-50 flex items-center justify-center px-4">
+            <div className="bg-white w-full max-w-3xl rounded-xl shadow-md border border-gray-200 p-8">
+                <h1 className="text-2xl font-bold text-gray-800 mb-1">
+                    {id === undefined ? 'Criar novo tema' : 'Atualizar tema'}
+                </h1>
+                <p className="text-sm text-gray-500 mb-8">
+                    Preencha os dados do tema abaixo
+                </p>
+                <form className="flex flex-col gap-6" onSubmit={gerarNovoTema}>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Descrição *
+                        </label>
+                        <input
+                            type="text"
+                            name="descricao"
+                            placeholder="Digite a descrição do tema"
+                            value={tema.descricao}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                        />
+                    </div>
+                    <div className="flex gap-3 mt-6">
+                        <button
+                            type="submit"
+                            className="bg-gray-900 text-white px-5 py-2 rounded-md hover:bg-gray-700 transition flex items-center justify-center cursor-pointer"
+                        >
+                            {isLoading ? (
+                                <ClipLoader color="#ffffff" size={20} />
+                            ) : (
+                                id === undefined ? 'Criar Tema' : 'Atualizar Tema'
+                            )}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={retornar}
+                            className="bg-gray-600 text-white px-5 py-2 rounded-md hover:bg-gray-700 transition cursor-pointer"
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
+
     )
 }
 

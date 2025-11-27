@@ -7,7 +7,7 @@ import { ClipLoader } from "react-spinners";
 function Login() {
   const navigate = useNavigate();
   const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({} as UsuarioLogin);
-  const {usuario, handleLogin, isLoading} = useContext(AuthContext);
+  const { usuario, handleLogin, isLoading } = useContext(AuthContext);
 
   useEffect(() => {
     if (usuario.token !== "") {
@@ -30,26 +30,64 @@ function Login() {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold">
-        <form className="flex justify-center items-center flex-col w-1/2 gap-4" onSubmit={login}>
-          <h2 className="text-slate-900 text-5xl">Entrar</h2>
-          <div className="flex flex-col w-full">
-            <label htmlFor="usuario">Usuário</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" className="border-2 border-slate-700 rounde p-2" value={usuarioLogin.usuario} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
-          </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="senha">Senha</label>
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" className="border-2 border-slate-700 rounde p-2" value={usuarioLogin.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
-          </div>
-          <button type="submit" className="rounded bg-indigo-400 flex justify-center hover:bg-indigo-900 text-white w-1/2 py-2">
-            {
-              isLoading ? <ClipLoader color="#ffffff" size={24} /> : <span>Entrar</span>
-            }
-          </button>
-          <hr className="border-slate-800 w-full" />
-          <p>Ainda não tem uma conta? {' '} <Link to="/cadastro" className="text-indigo-800 hover:underline">Cadastre-se</Link></p>
-        </form>
-        <div className="bg-[url('https://i.imgur.com/ZZFAmzo.jpg')] lg:block hidden bg-no-repeat w-full min-h-screen bg-cover bg-center"></div>
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg">
+
+          <h2 className="text-center text-2xl font-bold text-gray-800 mb-2">
+            Bem-vindo(a) de volta
+          </h2>
+          <p className="text-center text-sm text-gray-500 mb-6">
+            Entre na sua conta para continuar
+          </p>
+
+          <form className="flex flex-col gap-4" onSubmit={login}>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="usuario" className="text-sm text-gray-700">
+                E-mail
+              </label>
+              <input
+                type="text"
+                id="usuario"
+                name="usuario"
+                placeholder="seuemail@email.com"
+                value={usuarioLogin.usuario}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-0 focus:ring-gray-700 focus:border-gray-700 text-sm"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="senha" className="text-sm text-gray-700">
+                Senha
+              </label>
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="••••••••"
+                value={usuarioLogin.senha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-0 focus:ring-gray-700 focus:border-gray-700 text-sm"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="bg-gray-800 hover:bg-gray-700 transition text-white font-medium py-2 rounded-md mt-2 flex justify-center items-center cursor-pointer"
+            >
+              {isLoading ? <ClipLoader color="#ffffff" size={24} /> : <span>Entrar</span>}
+            </button>
+
+          </form>
+
+          <p className="text-sm text-center text-gray-600 mt-6">
+            Não tem uma conta?{" "}
+            <Link to="/cadastro" className="text-gray-600 hover:underline font-medium">
+              Cadastre-se
+            </Link>
+          </p>
+        </div>
       </div>
     </>
   )

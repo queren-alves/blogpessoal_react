@@ -17,21 +17,22 @@ function Navbar() {
 
     if (usuario.token !== "") {
         component = (
-            <div className="w-full flex justify-center py-4 bg-purple-950 text-white">
-                <div className="container flex justify-between text-lg mx-8">
-                    <Link to="/home" className="text-2xl font-bold">PostHub</Link>
-                    <div className="flex gap-4">
-                        <Link to='/postagens' className='hover:underline'>Postagens</Link>
-                        <Link to='/temas' className='hover:underline'>Temas</Link>
-                        <Link to='/cadastrartema' className='hover:underline'>Cadastrar tema</Link>
-                        <Link to='/perfil' className="hover:underline">Perfil</Link>
-                        <Link to="" onClick={logout} className="hover:underline">Sair</Link>
-                    </div>
+            <div className="w-full bg-white border-gray-200 shadow-sm sticky top-0 z-50">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between text-gray-800">
+                    <Link to="/home" className="text-2xl font-semibold text-blue-950">
+                        PostHub
+                    </Link>
+                    <nav className="hidden md:flex gap-8 text-[15px]">
+                        <Link to="/home" className="hover:underline text-blue-950 transition">Home</Link>
+                        <Link to="/postagens" className="hover:underline text-blue-950 transition">Postagens</Link>
+                        <Link to="/temas" className="hover:underline text-blue-950 transition">Temas</Link>
+                        <Link to="/perfil" className="hover:underline text-blue-950 transition">Perfil</Link>
+                    </nav>
+                    <Link to='' onClick={logout} className='border rounded px-4 py-2 bg-gray-800 text-white hover:bg-gray-700 cursor-pointer'>Sair</Link>
                 </div>
             </div>
         )
     }
-
     return (
         <>
             {component}

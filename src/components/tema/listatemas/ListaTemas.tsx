@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardTema from "../cardtema/CardTema";
 import { useContext, useEffect, useState } from "react";
 import type Tema from "../../../models/Tema";
@@ -46,26 +46,36 @@ function ListaTemas() {
                 isLoading && (
                     <div className="flex justify-center w-full my-8">
                         <SyncLoader
-                            color="#312e81"
-                            size={32}
+                            color="#1f2937"
+                            size={8}
                         />
                     </div>
                 )
             }
-            <div className="flex justify-center w-full my-4">
-                <div className="container flex flex-col">
-                    {
-                        (!isLoading && temas.length === 0) && (
-                            <span className="text-3xl text-center my-8">Nenhum Tema foi encontrado.</span>
-                        )
-                    }
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {
-                            temas.map((tema) => (
-                                <CardTema key={tema.id} tema={tema} />
-                            ))
-                        }
-                    </div>
+
+            <div className="min-h-80 bg-white py-10">
+                <div className="max-w-5xl mx-auto flex justify-between items-center mb-10 px-4">
+                    <h1 className="text-3xl font-semibold text-[#1f2937]">
+                        Gerenciar Temas
+                    </h1>
+                    <Link
+                        to="/cadastrartema"
+                        className="bg-gray-900 text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-700 transition"
+                    >
+                        + Criar Tema
+                    </Link>
+                </div>
+                <div className="max-w-5xl mx-auto flex flex-col gap-6 px-4 items-center">
+
+                    {(!isLoading && temas.length === 0) && (
+                        <span className="text-lg text-center text-gray-500 my-10">
+                            Nenhum tema foi encontrado.
+                        </span>
+                    )}
+
+                    {temas.map((tema) => (
+                        <CardTema key={tema.id} tema={tema} />
+                    ))}
                 </div>
             </div>
         </>

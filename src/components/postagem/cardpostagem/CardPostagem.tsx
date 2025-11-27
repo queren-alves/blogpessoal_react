@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type Postagem from '../../../models/Postagem'
+import { PencilSimpleIcon, TrashSimpleIcon } from '@phosphor-icons/react'
 
 interface CardPostagensProps {
     postagem: Postagem
@@ -7,39 +8,65 @@ interface CardPostagensProps {
 
 function CardPostagem({ postagem }: CardPostagensProps) {
     return (
-        <div className='border-slate-900 border 
-            flex flex-col rounded overflow-hidden justify-between'>
-                
-            <div>
-                <div className="flex w-full bg-indigo-400 py-2 px-4 items-center gap-4">
+        <div
+            className="bg-white rounded-2xl border border-gray-200 shadow-sm 
+             hover:shadow-xl hover:-translate-y-1 transition-all duration-300 
+             overflow-hidden flex flex-col justify-between"
+        >
+            <div className="flex items-center justify-between px-6 py-4">
+                <div className="flex items-center gap-4">
                     <img
                         src={postagem.usuario?.foto}
-                        className='h-12 rounded-full'
-                        alt={postagem.usuario?.nome} />
-                    <h3 className='text-lg font-bold text-center uppercase'>
-                        {postagem.usuario?.nome}
-                    </h3>
+                        alt={postagem.usuario?.nome}
+                        className="h-12 w-12 rounded-full object-cover"
+                    />
+                    <div>
+                        <h3 className="font-semibold text-slate-800">
+                            {postagem.usuario?.nome}
+                        </h3>
+                        <p className="text-sm text-slate-500">
+                            {new Intl.DateTimeFormat("pt-BR", {
+                                dateStyle: "medium",
+                                timeStyle: "short"
+                            }).format(new Date(postagem.data))}
+                        </p>
+                    </div>
                 </div>
-                <div className='p-4 '>
-                    <h4 className='text-lg font-semibold uppercase'>{postagem.titulo}</h4>
-                    <p>{postagem.texto}</p>
-                    <p>Tema: {postagem.tema?.descricao}</p>
-                    <p>Data: {new Intl.DateTimeFormat("pt-BR", {
-                        dateStyle: 'full',
-                        timeStyle: 'medium',
-                    }).format(new Date(postagem.data))}</p>
+                <div className="flex gap-2">
+                    <Link
+                        to={`/editarpostagem/${postagem.id}`}
+                        className="bg-transparent p-2 rounded-md border border-gray-200 shadow-sm 
+                       hover:bg-gray-100 transition flex items-center justify-center text-slate-800"
+                        title="Editar Postagem"
+                    >
+                        <PencilSimpleIcon />
+                    </Link>
+                    <Link
+                        to={`/deletarpostagem/${postagem.id}`}
+                        className="bg-transparent p-2 rounded-md border border-gray-200 shadow-sm 
+                       hover:bg-gray-100 transition flex items-center justify-center text-slate-800"
+                        title="Excluir Postagem"
+                    >
+                        <TrashSimpleIcon />
+                    </Link>
                 </div>
             </div>
-            <div className="flex">
-                <Link to={`/editarpostagem/${postagem.id}`}  
-                    className='w-full text-white bg-indigo-400 
-                    hover:bg-indigo-800 flex items-center justify-center py-2'>
-                    <button>Editar</button>
-                </Link>
-                <Link to={`/deletarpostagem/${postagem.id}`} 
-                    className='text-white bg-red-400 
-                    hover:bg-red-700 w-full flex items-center justify-center'>
-                    <button>Deletar</button>
+            <div className="p-6 space-y-3">
+                <span className=" bg-yellow-100 
+                            text-orange-700  text-sm font-medium px-3 py-1 rounded-full inline-block">
+                    {postagem.tema?.descricao}
+                </span>
+                <h2 className="text-xl font-bold text-slate-800">
+                    {postagem.titulo}
+                </h2>
+                <p className="text-slate-600 line-clamp-2 mb-6">
+                    {postagem.texto}
+                </p>
+                <Link
+                    to={`/postagem/${postagem.id}`}
+                    className="bg-gray-900 text-white hover:bg-gray-700 transition cursor-pointe px-4 py-2 rounded-lg"
+                >
+                    Ler mais →
                 </Link>
             </div>
         </div>

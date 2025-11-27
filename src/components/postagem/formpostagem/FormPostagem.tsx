@@ -16,7 +16,7 @@ function FormPostagem() {
     const [temas, setTemas] = useState<Tema[]>([])
 
     const [tema, setTema] = useState<Tema>({ id: 0, descricao: '', })
-    
+
     const [postagem, setPostagem] = useState<Postagem>({} as Postagem)
 
     const { usuario, handleLogout } = useContext(AuthContext)
@@ -142,70 +142,77 @@ function FormPostagem() {
 
     const carregandoTema = tema.descricao === '';
 
-
     return (
-        <div className="container flex flex-col mx-auto items-center">
-            <h1 className="text-4xl text-center my-8">
-                 {id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}
-            </h1>
+        <div className="flex justify-center w-full my-8">
+            <div className="container max-w-2xl">
+                <div className="bg-white shadow-lg rounded-xl p-8 border border-slate-200">
+                    <h1 className="text-3xl font-bold text-center mb-6">
+                        {id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}
+                    </h1>
 
-            <form className="flex flex-col w-1/2 gap-4"
-                onSubmit={gerarNovaPostagem}>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Título da Postagem</label>
-                    <input
-                        type="text"
-                        placeholder="Titulo"
-                        name="titulo"
-                        required
-                        className="border-2 border-slate-700 rounded p-2"
-                        value={postagem.titulo}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                    />
-                </div>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Texto da Postagem</label>
-                    <input
-                        type="text"
-                        placeholder="Texto"
-                        name="texto"
-                        required
-                        className="border-2 border-slate-700 rounded p-2"
-                         value={postagem.texto}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                    />
-                </div>
-                <div className="flex flex-col gap-2">
-                    <p>Tema da Postagem</p>
-                    <select name="tema" id="tema" className='border p-2 border-slate-800 rounded' 
-                        onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
+                    <form
+                        className="flex flex-col gap-5"
+                        onSubmit={gerarNovaPostagem}
                     >
-                        <option value="" selected disabled>Selecione um Tema</option>
-                        
-                        {temas.map((tema) => (
-                            <>
-                                <option value={tema.id} >{tema.descricao}</option>
-                            </>
-                        ))}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold">Título da Postagem</label>
+                            <input
+                                type="text"
+                                placeholder="Digite o título"
+                                name="titulo"
+                                required
+                                value={postagem.titulo}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                                className="border border-slate-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold">Texto da Postagem</label>
+                            <input
+                                placeholder="Digite o conteúdo"
+                                name="texto"
+                                required
+                                value={postagem.texto}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                                className="border border-slate-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-gray-400"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <label className="font-semibold">Tema da Postagem</label>
+                            <select
+                                name="tema"
+                                id="tema"
+                                onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
+                                className="border border-slate-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
+                            >
+                                <option value="" disabled selected>Selecione um tema</option>
 
-                    </select>
+                                {temas.map((tema) => (
+                                    <option key={tema.id} value={tema.id}>
+                                        {tema.descricao}
+                                    </option>
+                                ))}
+
+                            </select>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={carregandoTema}
+                            className="mt-4 rounded-xl bg-gray-900 hover:bg-gray-700 cursor-pointer
+                     text-white font-semibold py-3 
+                     flex justify-center items-center
+                     disabled:bg-slate-300 transition-all"
+                        >
+                            {isLoading ? (
+                                <ClipLoader color="#ffffff" size={24} />
+                            ) : (
+                                <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+                            )}
+                        </button>
+                    </form>
                 </div>
-                <button 
-                    type='submit' 
-                    className='rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
-                               text-white font-bold w-1/2 mx-auto py-2 flex justify-center'
-                               disabled={carregandoTema}
-                >
-                    { isLoading ? 
-                            <ClipLoader 
-                                color="#ffffff" 
-                                size={24}
-                            /> : 
-                           <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
-                    }
-
-                </button>
-            </form>
+            </div>
         </div>
     );
 }

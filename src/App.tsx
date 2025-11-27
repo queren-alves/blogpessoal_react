@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import Perfil from "./pages/perfil/Perfil"
 import AtualizarPerfil from "./pages/perfil/AtualizarPerfil"
+import PostagemDetalhe from "./components/postagem/detalhepostagem/DetalhePostagem"
 
 function App() {
 
@@ -33,12 +34,14 @@ function App() {
               <Route path="/cadastrartema" element={<FormTema />} />
               <Route path="/editartema/:id" element={<FormTema />} />
               <Route path="/deletartema/:id" element={<DeletarTema />} />
-              <Route path="/postagens" element={<ListaPostagens />} />
+              <Route path="/postagens" element={<ListaPostagens idTemaFiltro={null} />} />
               <Route path="/cadastrarpostagem" element={<FormPostagem />} />
               <Route path="/editarpostagem/:id" element={<FormPostagem />} />
               <Route path="/deletarpostagem/:id" element={<DeletarPostagem />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/atualizarperfil" element={<AtualizarPerfil />} />
+              <Route path="/postagens/tema/:id" element={<ListaPostagens idTemaFiltro={null} />} />
+              <Route path="/postagem/:id" element={<PostagemDetalhe />} />
             </Routes>
           </div>
           <Footer />

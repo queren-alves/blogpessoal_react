@@ -60,7 +60,7 @@ function DeletarPostagem() {
         } catch (error: any) {
             if (error.toString().includes('401')) {
                 handleLogout()
-            }else {
+            } else {
                 ToastAlerta('Erro ao deletar a postagem.', "erro")
             }
         }
@@ -72,45 +72,39 @@ function DeletarPostagem() {
     function retornar() {
         navigate("/postagens")
     }
-    
+
     return (
-        <div className='container w-1/3 mx-auto'>
-            <h1 className='text-4xl text-center my-4'>Deletar Postagem</h1>
-
-            <p className='text-center font-semibold mb-4'>
-                Você tem certeza de que deseja apagar a postagem a seguir?
+        <div className="max-w-xl mx-auto mt-20 bg-white text-gray-800 
+                rounded-2xl shadow-2xl border border-gray-200 p-8">
+            <h1 className="text-2xl font-bold mb-4 text-gray-800">
+                Excluir Postagem
+            </h1>
+            <p className="text-gray-700 leading-relaxed mb-6">
+                Tem certeza de que deseja excluir a postagem
+                <span className="text-gray-700 font-semibold"> "{postagem.titulo}"</span>?
+                Esta ação não poderá ser desfeita.
             </p>
+            <div className="flex justify-end gap-3">
 
-            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
-                <header 
-                    className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>
-                    Postagem
-                </header>
-                <div className="p-4">
-                    <p className='text-xl h-full'>{postagem.titulo}</p>
-                    <p>{postagem.texto}</p>
-                </div>
-                <div className="flex">
-                    <button 
-                        className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2'
-                        onClick={retornar}>
-                        Não
-                    </button>
-                    <button 
-                        className='w-full text-slate-100 bg-indigo-400 
-                        hover:bg-indigo-600 flex items-center justify-center'
-                        onClick={deletarPostagem}>
+                <button
+                    onClick={retornar}
+                    className="px-5 py-2 rounded-lg border border-gray-700 
+                       hover:bg-gray-800 transition text-gray-700 hover:text-white cursor-pointer"
+                >
+                    Cancelar
+                </button>
 
-                        { isLoading ? 
-                            <ClipLoader 
-                                color="#ffffff" 
-                                size={24}
-                            /> : 
-                            <span>Sim</span>
-                        }
-                        
-                    </button>
-                </div>
+                <button
+                    onClick={deletarPostagem}
+                    className="px-5 py-2 rounded-lg bg-red-600 hover:bg-red-700 
+                       transition text-white font-semibold flex items-center gap-2 cursor-pointer"
+                >
+                    {isLoading ? (
+                        <ClipLoader color="#ffffff" size={20} />
+                    ) : (
+                        "Excluir"
+                    )}
+                </button>
             </div>
         </div>
     )
